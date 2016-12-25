@@ -14,13 +14,9 @@ public class JDKProxyMain {
 
     public static void main(String[] args) {
         IUserService userService = new UserServiceImpl();
-
-        JDKProxy jdkProxy = new JDKProxy(userService) ;
-
-        IUserService proxy = (IUserService) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), userService.getClass().getInterfaces(), jdkProxy) ;
-
+        JDKProxy jdkProxy = new JDKProxy();
+        IUserService proxy = (IUserService) jdkProxy.createProxy(userService) ;
         proxy.add();
-
         proxy.sayHelloWorld();
     }
 

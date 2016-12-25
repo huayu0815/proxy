@@ -1,5 +1,7 @@
 package com.huayu.study.jdkProxy.proxy;
 
+import com.huayu.study.jdkProxy.demo.IUserService;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -11,9 +13,19 @@ public class JDKProxy implements InvocationHandler {
 
     private Object target;
 
-    public JDKProxy(Object target) {
-        super();
-        this.target = target;
+//    public JDKProxy(Object target) {
+//        super();
+//        this.target = target;
+//    }
+
+    /**
+     * 创建代理对象
+     * @param object
+     * @return
+     */
+    public Object createProxy(Object object) {
+        this.target = object ;
+        return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), target.getClass().getInterfaces(), this) ;
     }
 
     /**
@@ -39,5 +51,7 @@ public class JDKProxy implements InvocationHandler {
         }
 
     }
+
+
 
 }
